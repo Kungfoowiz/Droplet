@@ -1,0 +1,14 @@
+{
+  "name": "droplet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "node-sass --watch Style -o css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^4.8.3"
+  }
+}
