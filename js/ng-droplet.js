@@ -40,7 +40,73 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "d"
                 },
-                "dt_txt": "2018-04-27 06:00:00"
+                "dt_txt": "2018-05-19 00:00:00"
+            }, {
+                "dt": 1524376800,
+                "main": {
+                    "temp": 283.77,
+                    "temp_min": 283.044,
+                    "temp_max": 283.77,
+                    "pressure": 1010.61,
+                    "sea_level": 1024.18,
+                    "grnd_level": 1010.61,
+                    "humidity": 95,
+                    "temp_kf": 0.73
+                },
+                "weather": [{
+                        "id": 500,
+                        "main": "Rain",
+                        "description": "light rain",
+                        "icon": "10d"
+                    }
+                ],
+                "clouds": {
+                    "all": 36
+                },
+                "wind": {
+                    "speed": 2.97,
+                    "deg": 252
+                },
+                "rain": {
+                    "3h": 0.01941
+                },
+                "sys": {
+                    "pod": "d"
+                },
+                "dt_txt": "2018-05-19 03:00:00"
+            }, {
+                "dt": 1524376800,
+                "main": {
+                    "temp": 283.77,
+                    "temp_min": 283.044,
+                    "temp_max": 283.77,
+                    "pressure": 1010.61,
+                    "sea_level": 1024.18,
+                    "grnd_level": 1010.61,
+                    "humidity": 95,
+                    "temp_kf": 0.73
+                },
+                "weather": [{
+                        "id": 500,
+                        "main": "Rain",
+                        "description": "light rain",
+                        "icon": "10d"
+                    }
+                ],
+                "clouds": {
+                    "all": 36
+                },
+                "wind": {
+                    "speed": 2.97,
+                    "deg": 252
+                },
+                "rain": {
+                    "3h": 0.01941
+                },
+                "sys": {
+                    "pod": "d"
+                },
+                "dt_txt": "2018-05-19 06:00:00"
             }, {
                 "dt": 1524387600,
                 "main": {
@@ -73,7 +139,7 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "d"
                 },
-                "dt_txt": "2018-04-27 09:00:00"
+                "dt_txt": "2018-05-19 09:00:00"
             }, {
                 "dt": 1524398400,
                 "main": {
@@ -106,7 +172,7 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "d"
                 },
-                "dt_txt": "2018-04-27 12:00:00"
+                "dt_txt": "2018-05-19 12:00:00"
             }, {
                 "dt": 1524409200,
                 "main": {
@@ -139,7 +205,7 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "d"
                 },
-                "dt_txt": "2018-04-27 15:00:00"
+                "dt_txt": "2018-05-19 15:00:00"
             }, {
                 "dt": 1524420000,
                 "main": {
@@ -172,7 +238,7 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "d"
                 },
-                "dt_txt": "2018-04-27 18:00:00"
+                "dt_txt": "2018-05-19 18:00:00"
             }, {
                 "dt": 1524430800,
                 "main": {
@@ -205,7 +271,7 @@ var ngDroplet = angular.module("dropletApp", []);
                 "sys": {
                     "pod": "n"
                 },
-                "dt_txt": "2018-04-27 21:00:00"
+                "dt_txt": "2018-05-19 21:00:00"
             }, {
                 "dt": 1524441600,
                 "main": {
@@ -274,27 +340,77 @@ var ngDroplet = angular.module("dropletApp", []);
 
     var getCurrentDates = function(data){
 
-        var day = new Date().getDate().toString();
+        var currentDate = new Date();
+
+        var day = currentDate.getDate().toString();
 
         if(day.length < 2){
             day = "0" + day;
         }
 
-        var currentDates = [];
+        // var currentDates = [];
 
-        angular.forEach(jsonTest.list, function(value, key){
+        // angular.forEach(data.list, function(value, key){
             
-            // $scope.data += "[" + key + "] = [" + value.dt_txt + "] ";
+        //     // $scope.data += "[" + key + "] = [" + value.dt_txt + "] ";
             
-            if( value.dt_txt.substring(8, 10) === day){
-                currentDates += "[At " + value.dt_txt + ", the weather will be " + 
-                value.weather[0].main + " and generally it will be " + value.weather[0].description + ".] ";
+        //     if( value.dt_txt.substring(8, 10) === day){
+        //         currentDates += "[At " + value.dt_txt + ", the weather will be " + 
+        //         value.weather[0].main + " and generally it will be " + value.weather[0].description + ".] ";
+        //     }
+
+        // });
+
+        // for(var index = 0; index < data.list.length; index++){
+        //     var currentData = data.list[index];
+        //     if( currentData.dt_txt.substring(8, 10) === day){
+        //         currentDates += "[At " + currentData.dt_txt + ", the weather will be " + 
+        //         currentData.weather[0].main + " and generally it will be " + currentData.weather[0].description + ".] ";
+        //     }
+        // }
+
+        
+        
+        var rainCount = 0;
+
+        for(var index = 0; index < data.list.length; index++){
+            var currentData = data.list[index];
+            if( currentData.dt_txt.substring(8, 10) === day){
+                var mainWeather = currentData.weather[0].main.toLowerCase();
+                if(mainWeather.search("rain") > -1 ){
+                    rainCount++;
+                }
             }
+        }
 
-        });
+        // var result = currentDate.toUTCString() + ", the rainCount is " + rainCount;
+        var result = currentDate.toUTCString() + ", " + rainAggregator(rainCount);
 
-        $scope.data = currentDates;
+        $scope.data = result;
+
+        // $scope.data = currentDates;
     }
+
+
+    var rainAggregator = function(rainCount){
+        var result = "";
+
+        if(rainCount == 0){
+            result = "It will not rain today.";
+        }
+        else if(rainCount < 4){
+            result = "It's going to rain a bit today.";
+        }
+        else if(rainCount < 8){
+            result = "It will rain most of the day.";
+        }
+        else{
+            result = "It will rain all day.";
+        }
+
+        return result;
+    }
+
 
     // var promise = $http.get(url);
     // promise.success(onSuccess);
